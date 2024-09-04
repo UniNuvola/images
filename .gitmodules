@@ -4,3 +4,6 @@
 [submodule "ldapproxy"]
 	path = ldapproxy
 	url = git@github.com:UniNuvola/ldapproxy.git
+[submodule "web"]
+	path = web
+	url = git@github.com:UniNuvola/web.git

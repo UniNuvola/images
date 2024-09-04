@@ -1,0 +1,3 @@
+[submodule "ldapsyncservice"]
+	path = ldapsyncservice
+	url = git@github.com:UniNuvola/ldapsyncservice.git

@@ -1,3 +1,6 @@
 [submodule "ldapsyncservice"]
 	path = ldapsyncservice
 	url = git@github.com:UniNuvola/ldapsyncservice.git
+[submodule "ldapproxy"]
+	path = ldapproxy
+	url = git@github.com:UniNuvola/ldapproxy.git

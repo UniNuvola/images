@@ -1,4 +1,4 @@
-FROM jupyterhub/k8s-hub:3.2.1
+FROM quay.io/jupyterhub/k8s-hub:3.3.8
 MAINTAINER Mirko Mariotti <mirko.mariotti@unipg.it>
 
 #USER root
@@ -6,6 +6,6 @@ MAINTAINER Mirko Mariotti <mirko.mariotti@unipg.it>
 #RUN apt-get update; apt-get install -y --no-install-recommends iproute2
 
 #USER jovyan
-
-RUN pip install --no-cache-dir --upgrade pip oauthenticator
+#RUN pip install --upgrade pip
+#RUN pip install --no-cache-dir oauthenticator
 

@@ -1,9 +1,7 @@
-name: Docker Image CI
+name: Rebuild Images
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
     branches: [ "main" ]
 
 jobs:
@@ -15,4 +13,4 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Build the Docker image
-      run: docker build . --file ./unihubsingle/Dockerfile --tag harbor1.fisgeo.unipg.it/uninuvola/unihubsingle:$(date +%s)
+      run: make

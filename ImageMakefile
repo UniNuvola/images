@@ -25,4 +25,4 @@ push: check
 .PHONY: tag
 tag: check
 	docker tag $(IMAGE):$(DEPLOYED) $(IMAGE):deployed
-	docker push $(IMAGE):$(DEPLOYED) $(IMAGE):deployed
+	docker push $(IMAGE):deployed

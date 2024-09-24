@@ -1,9 +1,8 @@
 DIRS=unihub \
-unihubsingle #\
-#base \
-#base/conda \
-#base/conda/quantum \
-#base/engineering
+unihubsingle \
+base \
+base/conda \
+base/engineering
 
 .PHONY: all
 all: build push tag

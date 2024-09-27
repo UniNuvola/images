@@ -2,6 +2,7 @@ DIRS=unihub \
 unihubsingle \
 base \
 base/conda \
+base/conda/pytorch \
 base/engineering
 
 .PHONY: all

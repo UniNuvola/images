@@ -3,6 +3,7 @@ unihubsingle \
 base \
 base/conda \
 base/conda/pytorch \
+base/conda/pytorch-gpu \
 base/engineering
 
 .PHONY: all

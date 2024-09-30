@@ -44,8 +44,6 @@ RUN git clone https://github.com/lh3/seqtk.git
 
 #PICARD 1
 RUN git clone https://github.com/broadinstitute/picard.git
-WORKDIR /app/picard/
-RUN ./gradlew shadowJar
 
 ## TRIMGALORE 
 RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz -o trim_galore.tar.gz &&  \

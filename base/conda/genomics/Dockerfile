@@ -1,4 +1,5 @@
 FROM harbor1.fisgeo.unipg.it/uninuvola/conda:latest
+FROM harbor1.fisgeo.unipg.it/uninuvola/cgat-env:latest
 
 USER root 
 RUN apt-get update
@@ -14,10 +15,17 @@ RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge
 RUN conda config --set channel_priority strict
 
-RUN conda create -n  genomics cutadapt
-RUN /opt/conda/bin/conda shell.bash activate  genomics
-RUN /opt/conda/envs/genomics/bin/pip install ipykernel bowtie biopython agat  pandas matplotlib numpy pysam Cython psycopg2-binary
-RUN /opt/conda/envs/genomics/bin/python -m ipykernel install --name genomics --display-name genomics
+RUN conda create -n  genomics-capomaccio cutadapt
+RUN /opt/conda/bin/conda shell.bash activate  genomics-capomaccio
+RUN /opt/conda/envs/genomics-capomaccio/bin/pip install ipykernel bowtie biopython agat matplotlib  pandas matplotlib numpy pysam Cython psycopg2-binary
+RUN /opt/conda/envs/genomics-capomaccio/bin/python -m ipykernel install --name genomics-capomaccio --display-name genomics-capomaccio
+RUN /opt/conda/bin/conda shell.bash deactivate
+
+RUN conda create -n genomics-lasagna -c bioconda -c conda-forge salmon gemma snpeff && \
+    conda clean -a
+RUN /opt/conda/bin/conda shell.bash activate  genomics-lasagna
+RUN /opt/conda/envs/genomics-lasagna/bin/pip install ipykernel pandas matplotlib numpy
+RUN /opt/conda/envs/genomics-lasagna/bin/python -m ipykernel install --name genomics-lasagna --display-name genomics-lasagna
 RUN /opt/conda/bin/conda shell.bash deactivate
 
 RUN conda create -n R-env  r-base r-essentials r-devtools -y
@@ -55,6 +63,10 @@ RUN git clone https://github.com/vcftools/vcftools.git
 #STAR  3
 RUN git clone https://github.com/alexdobin/STAR.git
 
+#FEATURECOUNTS
+RUN wget https://sourceforge.net/projects/subread/files/subread-2.0.7/subread-2.0.7-source.tar.gz
+RUN tar -zxvf subread-2.0.7-source.tar.gz && cd /app/subread-2.0.7-source/src && make -f Makefile.Linux
+
 WORKDIR /app/parallel-20240922/
 RUN ./configure && make &&  make install
 WORKDIR  /app/bedtools2
@@ -74,10 +86,13 @@ RUN make STAR
 WORKDIR /app
 RUN rm *.tar.gz *.zip
 
+WORKDIR /usr/local/bin
+RUN wget https://faculty.washington.edu/browning/beagle/beagle.06Aug24.a91.jar -O beagle.jar
+
 RUN mv /app/TrimGalore-0.6.10/trim_galore /usr/local/bin/. && \
     mv /app/bedtools2/bin/* /usr/local/bin/. && \
     mv /app/STAR/bin/Linux_x86_64/STAR /usr/local/bin/.
-
+    mv /app/beagle.jar /usr/ocal/bin/.
 RUN echo "exec /bin/bash" >> /etc/profile
 
 USER jovyan

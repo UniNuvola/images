@@ -32,22 +32,15 @@ WORKDIR /app
 RUN wget http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
     tar xjf parallel-latest.tar.bz2
 
-
 ### BEDTOOLS all fatto
 RUN wget https://github.com/arq5x/bedtools2/releases/download/v2.29.1/bedtools-2.29.1.tar.gz && \
     tar -zxvf bedtools-2.29.1.tar.gz
-WORKDIR  /app/bedtools2
-RUN make
 
 # GFFREAD 1
 RUN git clone https://github.com/gpertea/gffread
-WORKDIR /app/gffread
-RUN make release
 
 #SEQTK 1
 RUN git clone https://github.com/lh3/seqtk.git
-WORKDIR /app/seqtk
-RUN  make
 
 #PICARD 1
 RUN git clone https://github.com/broadinstitute/picard.git
@@ -60,13 +53,25 @@ RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz 
 
 ## VCFTOOLS 1
 RUN git clone https://github.com/vcftools/vcftools.git
-WORKDIR /app/vcftools/
-RUN ./autogen.sh && ./configure && make && make install
 
 #STAR  3
 RUN git clone https://github.com/alexdobin/STAR.git
+
+WORKDIR /app/parallel-20240922/
+RUN ./configure && make &&  make install
+WORKDIR  /app/bedtools2
+RUN make
+WORKDIR /app/gffread
+RUN make release
+WORKDIR /app/seqtk
+RUN  make
+WORKDIR /app/picard/
+RUN ./gradlew shadowJar
+WORKDIR /app/vcftools/
+RUN ./autogen.sh && ./configure && make && make install
 WORKDIR /app/STAR/source
 RUN make STAR
+
 
 WORKDIR /app
 RUN rm *.tar.gz *.zip

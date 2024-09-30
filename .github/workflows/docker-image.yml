@@ -5,22 +5,35 @@ on:
     branches: [ "main" ]
 
 jobs:
+  define-matrix:
+    runs-on: self-hosted
+
+    outputs:
+      dirs: ${{ steps.dirs.outputs.dirs }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: 🔍 Find dirs
+        id: dirs
+        run: |
+          python .github/workflows/matrixbuilder.py >> "$GITHUB_OUTPUT"
 
   build:
+    needs: define-matrix
     strategy:
       matrix:
-        dir: [unihub, unihubsingle, base, base/conda, base/conda/pytorch, base/conda/pytorch-gpu, base/engineering]
+        dir: ${{ fromJSON(needs.define-matrix.outputs.dirs) }}
 
     runs-on: self-hosted
 
     steps:
-    - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-    - name: 🛠 Build Docker image
-      run: cd ${{ matrix.dir}} && make build
+      - name: 🛠 Build Docker image
+        run: cd ${{ matrix.dir}} && make build
 
-    - name: 🚀 Push Docker image
-      run: cd ${{ matrix.dir}} && make push
+      - name: 🚀 Push Docker image
+        run: cd ${{ matrix.dir}} && make push
 
-    - name: 🔖 Tag Docker image
-      run: cd ${{ matrix.dir}} && make tag
+      - name: 🔖 Tag Docker image
+        run: cd ${{ matrix.dir}} && make tag

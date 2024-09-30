@@ -7,10 +7,20 @@ on:
 jobs:
 
   build:
+    strategy:
+      matrix:
+        dir: [unihub, unihubsingle, base, base/conda, base/conda/pytorch, base/conda/pytorch-gpu, base/engineering]
 
     runs-on: self-hosted
 
     steps:
     - uses: actions/checkout@v4
-    - name: Build the Docker image
-      run: make
+
+    - name: 🛠 Build Docker image
+      run: cd ${{ matrix.dir}} && make build
+
+    - name: 🚀 Push Docker image
+      run: cd ${{ matrix.dir}} && make push
+
+    - name: 🔖 Tag Docker image
+      run: cd ${{ matrix.dir}} && make tag

@@ -21,6 +21,7 @@ jobs:
   build:
     needs: define-matrix
     strategy:
+      fail-fast: false
       matrix:
         dir: ${{ fromJSON(needs.define-matrix.outputs.dirs) }}
 

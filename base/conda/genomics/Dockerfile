@@ -9,7 +9,7 @@ RUN apt-get install -y openmpi-bin libopenmpi-dev gfortran mpich cmake xz-utils
 RUN apt-get install -y libbz2-dev liblzma-dev libncurses-dev
 RUN apt install -y openjdk-17-jre-headless unzip libboost-all-dev gawk bison r-base libgsl0-dev
 RUN apt-get install -y libpq-dev python-dev-is-python3
-RUN apt install -y nano less tmux screen
+RUN apt-get update && apt install -y nano less tmux screen
 
 RUN conda config --add channels bioconda
 RUN conda config --add channels conda-forge

@@ -144,8 +144,8 @@ RUN wget https://faculty.washington.edu/browning/beagle/beagle.06Aug24.a91.jar -
 
 RUN mv /app/TrimGalore-0.6.10/trim_galore /usr/local/bin/. && \
     mv /app/bedtools2/bin/* /usr/local/bin/. && \
-    mv /app/STAR/bin/Linux_x86_64/STAR /usr/local/bin/. && \
-    mv /app/beagle.jar /usr/ocal/bin/.
+    mv /app/STAR/bin/Linux_x86_64/STAR /usr/local/bin/.
+
 RUN echo "exec /bin/bash" >> /etc/profile
 
 USER jovyan

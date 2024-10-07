@@ -136,8 +136,8 @@ WORKDIR /app/STAR/source
 RUN make STAR
 
 
-WORKDIR /app
-RUN rm *.tar.gz *.zip
+#WORKDIR /app
+#RUN rm *.tar.gz *.zip
 
 WORKDIR /usr/local/bin
 RUN wget https://faculty.washington.edu/browning/beagle/beagle.06Aug24.a91.jar -O beagle.jar

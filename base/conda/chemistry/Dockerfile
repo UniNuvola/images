@@ -17,6 +17,9 @@ RUN /opt/conda/envs/mdtraj/bin/python -m ipykernel install --name mdtraj --displ
 
 ENV FFLAGS="-fallow-argument-mismatch -O3 -mtune=native"
 
+RUN apt-get install -y openmpi-bin libopenmpi-dev
+RUN apt-get install -y gfortran mpich cmake xz-utils
+
 WORKDIR /app
 RUN mkdir dlpoly
 RUN git clone https://gitlab.com/ccp5/dl-poly.git /app/dlpoly/.

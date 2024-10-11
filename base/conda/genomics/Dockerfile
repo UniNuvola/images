@@ -1,6 +1,5 @@
 FROM harbor1.fisgeo.unipg.it/uninuvola/conda:latest
 
-
 USER root 
 RUN apt-get update && \
     apt-get install -y openssh-server wget  libncurses-dev  && \
@@ -16,8 +15,8 @@ RUN conda config --add channels bioconda && \
     conda config --add channels conda-forge && \
     conda config --set channel_priority strict
 
-RUN conda create -n  cgat python=3.8.13 -y && conda clean -a -y
-RUN conda install -n cgat -c conda-forge -c bioconda \
+RUN conda create -n  cgat python=3.8.13 -y && conda clean -a -y && \
+    conda install -n cgat -c conda-forge -c bioconda \
     _libgcc_mutex=0.1=conda_forge     _openmp_mutex=4.5=2_gnu  aiohttp=3.8.1=py38h0a891b7_1 \
     aiosignal=1.2.0=pyhd8ed1ab_0     alignlib-lite=0.3=py38h9b08285_4     apsw=3.37.0.r1=py38he41bca5_0 \
     async-timeout=4.0.2=pyhd8ed1ab_0     attrs=21.4.0=pyhd8ed1ab_0     bcrypt=3.2.2=py38h0a891b7_0 \
@@ -64,77 +63,71 @@ RUN conda install -n cgat -c conda-forge -c bioconda \
     ucsc-bedtobigbed=357=0     ucsc-wigtobigwig=357=0   unicodedata2=14.0.0=py38h0a891b7_1     urllib3=1.26.9=pyhd8ed1ab_0 \
     wheel=0.37.1=pyhd8ed1ab_0     xorg-libxau=1.0.9=h7f98852_0     xorg-libxdmcp=1.1.3=h7f98852_0     xz=5.2.5=h516909a_1 \
     yaml=0.2.5=h7f98852_2     yarl=1.7.2=py38h0a891b7_2     zlib=1.2.12=h166bdaf_0 \
-    zope.event=4.5.0=pyh9f0ad1d_0     zope.interface=5.4.0=py38h0a891b7_2     zstd=1.5.2=h8a70e8d_1 \
-    && conda clean -a -y
-RUN /opt/conda/envs/cgat/bin/pip install ipykernel
-RUN /opt/conda/envs/cgat/bin/python -m ipykernel install --name cgat --display-name cgat
+    zope.event=4.5.0=pyh9f0ad1d_0     zope.interface=5.4.0=py38h0a891b7_2     zstd=1.5.2=h8a70e8d_1  && \
+    conda clean -a -y && \
+    /opt/conda/envs/cgat/bin/pip install ipykernel && \
+    /opt/conda/envs/cgat/bin/python -m ipykernel install --name cgat --display-name cgat
 
-RUN conda create -n  genomics-capomaccio cutadapt
-RUN /opt/conda/bin/conda shell.bash activate  genomics-capomaccio
-RUN /opt/conda/envs/genomics-capomaccio/bin/pip install ipykernel bowtie biopython agat matplotlib  pandas matplotlib numpy pysam Cython psycopg2-binary
-RUN /opt/conda/envs/genomics-capomaccio/bin/python -m ipykernel install --name genomics-capomaccio --display-name genomics-capomaccio
-RUN /opt/conda/bin/conda shell.bash deactivate
+RUN conda create -n genomics-capomaccio cutadapt  && \
+    /opt/conda/bin/conda shell.bash activate  genomics-capomaccio  && \
+    /opt/conda/envs/genomics-capomaccio/bin/pip install ipykernel bowtie biopython agat matplotlib  pandas matplotlib numpy pysam Cython psycopg2-binary  && \
+    /opt/conda/envs/genomics-capomaccio/bin/python -m ipykernel install --name genomics-capomaccio --display-name genomics-capomaccio && \
+    /opt/conda/bin/conda shell.bash deactivate
 
 RUN conda create -n genomics-lasagna -c bioconda -c conda-forge salmon gemma snpeff && \
-    conda clean -a
-RUN /opt/conda/bin/conda shell.bash activate  genomics-lasagna
-RUN /opt/conda/envs/genomics-lasagna/bin/pip install ipykernel pandas matplotlib numpy
-RUN /opt/conda/envs/genomics-lasagna/bin/python -m ipykernel install --name genomics-lasagna --display-name genomics-lasagna
-RUN /opt/conda/bin/conda shell.bash deactivate
+    conda clean -a  && \
+    /opt/conda/bin/conda shell.bash activate  genomics-lasagna   && \
+    /opt/conda/envs/genomics-lasagna/bin/pip install ipykernel pandas matplotlib numpy  && \
+    /opt/conda/envs/genomics-lasagna/bin/python -m ipykernel install --name genomics-lasagna --display-name genomics-lasagna  && \
+    /opt/conda/bin/conda shell.bash deactivate
 
-RUN conda create -n R-env  r-base r-essentials r-devtools -y
-RUN /bin/bash -c "source activate R-env && \
+RUN conda create -n R-env  r-base r-essentials r-devtools -y  && \
+    /bin/bash -c "source activate R-env && \
     R -e \"options(repos = list(CRAN = 'https://cloud.r-project.org/'))\" && \
     R -e \"devtools::install_github('IRkernel/IRkernel')\" && \
-    R -e \"IRkernel::installspec(user = FALSE)\""
-RUN /bin/bash -c "source activate R-env && R -e 'install.packages(\"lfmm\", repos=\"http://cran.us.r-project.org\")'"
+    R -e \"IRkernel::installspec(user = FALSE)\"" && \
+    /bin/bash -c "source activate R-env && R -e 'install.packages(\"lfmm\", repos=\"http://cran.us.r-project.org\")'"
 
 WORKDIR /app
+## DOWNLOAD FILES
 #GNU PARALLEL all fatto
 RUN wget http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
-    tar xjf parallel-latest.tar.bz2
-
-### BEDTOOLS all fatto
-RUN wget https://github.com/arq5x/bedtools2/releases/download/v2.29.1/bedtools-2.29.1.tar.gz && \
-    tar -zxvf bedtools-2.29.1.tar.gz
-
-# GFFREAD 1
-RUN git clone https://github.com/gpertea/gffread
-
-#SEQTK 1
-RUN git clone https://github.com/lh3/seqtk.git
-
-#PICARD 1
-RUN git clone https://github.com/broadinstitute/picard.git
-
-## TRIMGALORE 
-RUN curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz -o trim_galore.tar.gz &&  \
+    tar xjf parallel-latest.tar.bz2 && \
+    wget https://github.com/arq5x/bedtools2/releases/download/v2.29.1/bedtools-2.29.1.tar.gz && \
+    tar -zxvf bedtools-2.29.1.tar.gz && \
+    wget https://sourceforge.net/projects/subread/files/subread-2.0.7/subread-2.0.7-source.tar.gz && \
+    tar -zxvf subread-2.0.7-source.tar.gz && \
+    cd /app/subread-2.0.7-source/src && \
+    make -f Makefile.Linux  && \
+    git clone https://github.com/gpertea/gffread  && \
+    git clone https://github.com/lh3/seqtk.git  && \
+    git clone https://github.com/broadinstitute/picard.git  && \
+    git clone https://github.com/vcftools/vcftools.git  && \
+    git clone https://github.com/alexdobin/STAR.git  && \
+    curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz -o trim_galore.tar.gz &&  \
     tar xvzf trim_galore.tar.gz
 
-## VCFTOOLS 1
-RUN git clone https://github.com/vcftools/vcftools.git
-
-#STAR  3
-RUN git clone https://github.com/alexdobin/STAR.git
-
-#FEATURECOUNTS
-RUN wget https://sourceforge.net/projects/subread/files/subread-2.0.7/subread-2.0.7-source.tar.gz
-RUN tar -zxvf subread-2.0.7-source.tar.gz && cd /app/subread-2.0.7-source/src && make -f Makefile.Linux
-
-WORKDIR /app/parallel-20240922/
-RUN ./configure && make &&  make install
-WORKDIR  /app/bedtools2
-RUN make
-WORKDIR /app/gffread
-RUN make release
-WORKDIR /app/seqtk
-RUN  make
-WORKDIR /app/picard/
-RUN ./gradlew shadowJar
-WORKDIR /app/vcftools/
-RUN ./autogen.sh && ./configure && make && make install
-WORKDIR /app/STAR/source
-RUN make STAR
+##Compilations of the programs
+WORKDIR /app/ 
+RUN cd parallel-20240922/  && \
+    ./configure && \
+    make && \
+    make install  && \
+    cd /app/bedtools2  && \
+    make  && \
+    cd /app/gffread  && \
+    make release  && \
+    cd /app/seqtk  && \
+    make  && \
+    /app/picard/  && \
+    ./gradlew shadowJar  && \
+    cd /app/vcftools/  && \
+    cd ./autogen.sh && \
+    ./configure && \
+    make && \
+    make install  && \ 
+    cd /app/STAR/source  && \
+    make STAR
 
 
 #WORKDIR /app

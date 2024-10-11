@@ -115,7 +115,7 @@ RUN cd parallel-20240922/  && \
     make release  && \
     cd /app/seqtk  && \
     make  && \
-    /app/picard/  && \
+    cd /app/picard/  && \
     ./gradlew shadowJar  && \
     cd /app/vcftools/  && \
     cd ./autogen.sh && \

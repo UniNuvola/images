@@ -125,8 +125,7 @@ RUN cd parallel-20240922/  && \
     cd /app/STAR/source  && \
     make STAR && \
     cd /app/subread-2.0.7-source/src && \
-    make -f Makefile.Linux  && \
-
+    make -f Makefile.Linux  
 
 #WORKDIR /app
 #RUN rm *.tar.gz *.zip

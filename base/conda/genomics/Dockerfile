@@ -5,11 +5,12 @@ RUN apt-get update && \
     apt-get install -y openssh-server wget  libncurses-dev  && \
                        openmpi-bin libopenmpi-dev gfortran mpich cmake xz-utils  && \
                        libbz2-dev liblzma-dev libncurses-dev  && \
-                       libpq-dev python-dev-is-python3  && \
-    apt-get install -y htop vim hwloc && \
-    apt install -y openjdk-17-jre-headless libboost-all-dev libgsl0-dev  && \
-    apt install -y unzip gawk bison r-base && \
-    apt install -y nano less tmux screen 
+                       libpq-dev python-dev-is-python3 
+                       # && \
+#    apt-get install -y htop vim hwloc && \
+#    apt install -y openjdk-17-jre-headless libboost-all-dev libgsl0-dev  && \
+#    apt install -y unzip gawk bison r-base && \
+#    apt install -y nano less tmux screen 
 
 RUN conda config --add channels bioconda && \
     conda config --add channels conda-forge && \

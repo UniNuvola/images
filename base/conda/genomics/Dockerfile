@@ -2,7 +2,7 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/conda:latest
 
 USER root 
 RUN apt-get update && \
-    apt-get install -y openssh-server wget  libncurses-dev apt-get install -y openmpi-bin libopenmpi-dev gfortran mpich cmake xz-utils \ 
+    apt-get install -y openssh-server wget  libncurses-dev openmpi-bin libopenmpi-dev gfortran mpich cmake xz-utils \ 
                        libbz2-dev liblzma-dev libncurses-dev libpq-dev python-dev-is-python3  
     
 #    apt-get install -y htop vim hwloc && \

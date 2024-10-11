@@ -95,8 +95,6 @@ RUN wget http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
     tar -zxvf bedtools-2.29.1.tar.gz && \
     wget https://sourceforge.net/projects/subread/files/subread-2.0.7/subread-2.0.7-source.tar.gz && \
     tar -zxvf subread-2.0.7-source.tar.gz && \
-    cd /app/subread-2.0.7-source/src && \
-    make -f Makefile.Linux  && \
     git clone https://github.com/gpertea/gffread  && \
     git clone https://github.com/lh3/seqtk.git  && \
     git clone https://github.com/broadinstitute/picard.git  && \
@@ -125,7 +123,9 @@ RUN cd parallel-20240922/  && \
     make && \
     make install  && \ 
     cd /app/STAR/source  && \
-    make STAR
+    make STAR && \
+    cd /app/subread-2.0.7-source/src && \
+    make -f Makefile.Linux  && \
 
 
 #WORKDIR /app

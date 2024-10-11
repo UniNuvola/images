@@ -118,7 +118,7 @@ RUN cd parallel-20240922/  && \
     cd /app/picard/  && \
     ./gradlew shadowJar  && \
     cd /app/vcftools/  && \
-    cd ./autogen.sh && \
+    ./autogen.sh && \
     ./configure && \
     make && \
     make install  && \ 

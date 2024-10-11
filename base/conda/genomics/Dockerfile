@@ -2,18 +2,19 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/conda:latest
 
 
 USER root 
-RUN apt-get update
-RUN apt-get install -y openssh-server htop
-RUN apt-get install -y vim hwloc wget  libncurses-dev
-RUN apt-get install -y openmpi-bin libopenmpi-dev gfortran mpich cmake xz-utils
-RUN apt-get install -y libbz2-dev liblzma-dev libncurses-dev
-RUN apt install -y openjdk-17-jre-headless unzip libboost-all-dev gawk bison r-base libgsl0-dev
-RUN apt-get install -y libpq-dev python-dev-is-python3
-RUN apt-get update && apt install -y nano less tmux screen
+RUN apt-get update && \
+    apt-get install -y openssh-server wget  libncurses-dev  && \
+                       openmpi-bin libopenmpi-dev gfortran mpich cmake xz-utils  && \
+                       libbz2-dev liblzma-dev libncurses-dev  && \
+                       libpq-dev python-dev-is-python3  && \
+    apt-get install -y htop vim hwloc && \
+    apt install -y openjdk-17-jre-headless libboost-all-dev libgsl0-dev  && \
+    apt install -y unzip gawk bison r-base && \
+    apt install -y nano less tmux screen 
 
-RUN conda config --add channels bioconda
-RUN conda config --add channels conda-forge
-RUN conda config --set channel_priority strict
+RUN conda config --add channels bioconda && \
+    conda config --add channels conda-forge && \
+    conda config --set channel_priority strict
 
 RUN conda create -n  cgat python=3.8.13 -y && conda clean -a -y
 RUN conda install -n cgat -c conda-forge -c bioconda \

@@ -28,8 +28,8 @@ RUN apt-get install openmpi-bin && \
     wget https://plus.swat.tamu.edu/downloads/2.3/2.3.1/swatplus-linux-installer-2.3.1.tgz && \
     mkdir swatplus && \ 
     cd swatplus && \
-    tar -zxvf swatplus-linux-installer-2.3.1.tgz
-    /usr/bin/bash installforall.sh
+    tar -zxvf swatplus-linux-installer-2.3.1.tgz && \
+    /bin/bash -c installforall.sh && \
     rm swatplus-linux-installer-2.3.1.tgz
 
 RUN echo "exec /bin/bash" >> /etc/profile

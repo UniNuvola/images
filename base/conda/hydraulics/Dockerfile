@@ -3,17 +3,26 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/conda:latest
 USER root 
 
 RUN apt update && \
-    apt install -y  gnupg software-properties-common && \
+    apt install -y gnupg software-properties-common && \
     mkdir -m755 -p /etc/apt/keyrings && \
     wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg && \
-    touch  /etc/apt/sources.list.d/qgis.sources && \
-    echo "Types: deb deb-src \
-          URIs: https://qgis.org/debian \
-          Suites: bullseye \
-          Architectures: amd64 \
-          Components: main \
-          Signed-By: /etc/apt/keyrings/qgis-archive-keyring.gpg"  >  /etc/apt/sources.list.d/qgis.sources && \
-    apt update && apt install qgis qgis-plugin-grass
+    echo "deb [signed-by=/etc/apt/keyrings/qgis-archive-keyring.gpg] https://qgis.org/debian bullseye main" > /etc/apt/sources.list.d/qgis.list && \
+    apt update && \
+    apt install -y qgis qgis-plugin-grass
+
+#RUN apt update && \
+#    apt install -y  gnupg software-properties-common && \
+#    mkdir -m755 -p /etc/apt/keyrings && \
+#    wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg && \
+#    touch  /etc/apt/sources.list.d/qgis.sources && \
+#    echo "Types: deb deb-src \
+#          URIs: https://qgis.org/debian \
+#          Suites: bullseye \
+#          Architectures: amd64 \
+#          Components: main \
+#          Signed-By: /etc/apt/keyrings/qgis-archive-keyring.gpg"  >  /etc/apt/sources.list.d/qgis.sources && \
+#    apt update && \
+#    apt install -y  qgis qgis-plugin-grass
 
 RUN apt-get install -y grass grass-doc
 

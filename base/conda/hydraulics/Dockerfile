@@ -8,8 +8,8 @@ RUN apt update && \
     wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg && \
     touch  /etc/apt/sources.list.d/qgis.sources && \
     echo "Types: deb deb-src \
-          URIs: https://qgis.org/debian\
-          Suites: your-distributions-codename\
+          URIs: https://qgis.org/debian \
+          Suites: bullseye \
           Architectures: amd64 \
           Components: main \
           Signed-By: /etc/apt/keyrings/qgis-archive-keyring.gpg"  >  /etc/apt/sources.list.d/qgis.sources && \

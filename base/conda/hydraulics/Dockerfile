@@ -18,13 +18,14 @@ RUN apt update && \
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo && \
     flatpak install -y flathub org.cloudcompare.CloudCompare
 
-RUN apt-get install -y openmpi-bin && \
+RUN apt-get update && apt-get install -y openmpi-bin wget  && \
     wget https://plus.swat.tamu.edu/downloads/2.3/2.3.1/swatplus-linux-installer-2.3.1.tgz && \
-    mkdir swatplus && \ 
+    mkdir swatplus && \
     cd swatplus && \
     tar -zxvf swatplus-linux-installer-2.3.1.tgz && \
     /bin/bash -c installforall.sh && \
     rm swatplus-linux-installer-2.3.1.tgz
+
 
 RUN echo "exec /bin/bash" >> /etc/profile
 USER jovyan

@@ -4,7 +4,7 @@ USER root
 
 RUN apt update && \
     apt install -y  gnupg software-properties-common && \
-    mkdir -m755 -p /etc/apt/keyringsi && \
+    mkdir -m755 -p /etc/apt/keyrings && \
     wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg && \
     touch  /etc/apt/sources.list.d/qgis.sources && \
     echo "Types: deb deb-src \
@@ -13,7 +13,7 @@ RUN apt update && \
           Architectures: amd64 \
           Components: main \
           Signed-By: /etc/apt/keyrings/qgis-archive-keyring.gpg"  >  /etc/apt/sources.list.d/qgis.sources && \
-          apt update && apt install qgis qgis-plugin-grass
+    apt update && apt install qgis qgis-plugin-grass
 
 RUN apt-get install -y grass grass-doc
 

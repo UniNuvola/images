@@ -26,12 +26,13 @@ RUN apt update && \
 
 RUN apt-get install -y grass grass-doc
 
-RUN apt install -y  flatpak && \
+RUN apt update && \
+    apt install -y gnupg software-properties-common && \
     add-apt-repository ppa:flatpak/stable && \
-    apt update && \  
-    apt install -y flatpak && \ 
+    apt update && \
+    apt install -y flatpak && \
     apt install -y gnome-software-plugin-flatpak && \
-    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo && \ 
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo  && \
     flatpak install -y flathub org.cloudcompare.CloudCompare
 
 RUN apt-get install -y openmpi-bin && \

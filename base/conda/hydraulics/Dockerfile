@@ -26,7 +26,7 @@ RUN apt update && \
 
 RUN apt-get install -y grass grass-doc
 
-RUN apt install flatpak && \
+RUN apt install -y  flatpak && \
     add-apt-repository ppa:flatpak/stable && \
     apt update && \  
     apt install -y flatpak && \ 

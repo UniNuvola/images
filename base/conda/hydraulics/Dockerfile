@@ -11,7 +11,7 @@ RUN apt update && \
           Suites: your-distributions-codename\
           Architectures: amd64 \
           Components: main \
-          Signed-By: /etc/apt/keyrings/qgis-archive-keyring.gpg"  >>  /etc/apt/sources.list.d/qgis.sources && \
+          Signed-By: /etc/apt/keyrings/qgis-archive-keyring.gpg"  >  /etc/apt/sources.list.d/qgis.sources && \
           apt update && apt install qgis qgis-plugin-grass
 
 RUN apt-get install -y grass grass-doc

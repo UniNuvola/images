@@ -10,29 +10,12 @@ RUN apt update && \
     apt update && \
     apt install -y qgis qgis-plugin-grass
 
-#RUN apt update && \
-#    apt install -y  gnupg software-properties-common && \
-#    mkdir -m755 -p /etc/apt/keyrings && \
-#    wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg && \
-#    touch  /etc/apt/sources.list.d/qgis.sources && \
-#    echo "Types: deb deb-src \
-#          URIs: https://qgis.org/debian \
-#          Suites: bullseye \
-#          Architectures: amd64 \
-#          Components: main \
-#          Signed-By: /etc/apt/keyrings/qgis-archive-keyring.gpg"  >  /etc/apt/sources.list.d/qgis.sources && \
-#    apt update && \
-#    apt install -y  qgis qgis-plugin-grass
-
 RUN apt-get install -y grass grass-doc
 
 RUN apt update && \
     apt install -y gnupg software-properties-common && \
-    add-apt-repository ppa:flatpak/stable && \
-    apt update && \
-    apt install -y flatpak && \
-    apt install -y gnome-software-plugin-flatpak && \
-    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo  && \
+    apt install -y flatpak gnome-software-plugin-flatpak && \
+    flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo && \
     flatpak install -y flathub org.cloudcompare.CloudCompare
 
 RUN apt-get install -y openmpi-bin && \

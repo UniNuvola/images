@@ -6,6 +6,7 @@ RUN apt update && \
     apt install -y  gnupg software-properties-common && \
     mkdir -m755 -p /etc/apt/keyringsi && \
     wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg && \
+    touch  /etc/apt/sources.list.d/qgis.sources && \
     echo "Types: deb deb-src \
           URIs: https://qgis.org/debian\
           Suites: your-distributions-codename\

@@ -19,9 +19,9 @@ RUN apt update && \
     flatpak install -y flathub org.cloudcompare.CloudCompare
 
 RUN apt-get update && apt-get install -y openmpi-bin wget  && \
-    wget https://plus.swat.tamu.edu/downloads/2.3/2.3.1/swatplus-linux-installer-2.3.1.tgz && \
     mkdir swatplus && \
     cd swatplus && \
+    wget https://plus.swat.tamu.edu/downloads/2.3/2.3.1/swatplus-linux-installer-2.3.1.tgz && \
     tar -zxvf swatplus-linux-installer-2.3.1.tgz && \
     /bin/bash -c installforall.sh && \
     rm swatplus-linux-installer-2.3.1.tgz

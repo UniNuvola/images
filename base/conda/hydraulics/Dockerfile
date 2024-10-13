@@ -26,6 +26,11 @@ RUN apt-get update && apt-get install -y openmpi-bin wget  && \
     /bin/bash installforall.sh && \
     rm swatplus-linux-installer-2.3.1.tgz
 
+RUN conda create -n R-env  r-base r-essentials r-devtools -y  && \
+    /bin/bash -c "source activate R-env && \
+    R -e \"options(repos = list(CRAN = 'https://cloud.r-project.org/'))\" && \
+    R -e \"devtools::install_github('IRkernel/IRkernel')\" && \
+    R -e \"IRkernel::installspec(user = FALSE)\"" 
 
 RUN echo "exec /bin/bash" >> /etc/profile
 USER jovyan

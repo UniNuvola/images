@@ -23,7 +23,7 @@ RUN apt-get update && apt-get install -y openmpi-bin wget  && \
     cd swatplus && \
     wget https://plus.swat.tamu.edu/downloads/2.3/2.3.1/swatplus-linux-installer-2.3.1.tgz && \
     tar -zxvf swatplus-linux-installer-2.3.1.tgz && \
-    /bin/bash -c installforall.sh && \
+    /bin/bash installforall.sh && \
     rm swatplus-linux-installer-2.3.1.tgz
 
 

@@ -3,11 +3,11 @@ import json
 
 
 fixed = [
+    'unihubsingle',
+    'unihub',
     'ldapproxy/docker',
     'ldapsyncservice/docker',
     'web/docker',
-    'unihub',
-    'unihubsingle',
 ]
 folders = []
 
@@ -17,6 +17,6 @@ for root, dirs, files in os.walk('./base'):
     if 'Makefile' in files:
         folders.append(root)
 
-folders += fixed
+folders = [*fixed[:2], *folders, *fixed[2:]]
 
 print(f'dirs={json.dumps(folders)}')

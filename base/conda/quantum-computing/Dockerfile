@@ -29,5 +29,9 @@ RUN conda create -n  qiskit python=3.11.5 && \
     /opt/conda/envs/qiskit/bin/pip install qiskit_ibm_runtime && \
     /opt/conda/bin/conda shell.bash deactivate
 
+RUN apt install -y nano less tmux screen
+
+RUN echo "exec /bin/bash" >> /etc/profile
+
 USER jovyan
 

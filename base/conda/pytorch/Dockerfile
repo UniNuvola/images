@@ -10,5 +10,8 @@ RUN conda create -n pytorch pytorch python=3.11.5 && \
     /opt/conda/envs/pytorch/bin/python -m ipykernel install --name  pytorch --display-name pytorch && \
     /opt/conda/bin/conda shell.bash deactivate
 
+
+RUN echo "exec /bin/bash" >> /etc/profile
+
 USER jovyan
 

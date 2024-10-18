@@ -9,5 +9,7 @@ RUN conda create -n tensorflow tensorflow scikit-learn python=3.11.5 && \
     /opt/conda/envs/tensorflow/bin/python -m ipykernel install --name  tensorflow  --display-name tensorflow && \
     /opt/conda/bin/conda  install -c conda-forge hdf5=1.10.5 
 
+RUN echo "exec /bin/bash" >> /etc/profile
+
 USER jovyan
 

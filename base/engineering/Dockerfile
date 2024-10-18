@@ -4,19 +4,12 @@ USER root
 
 # Add the repository
 RUN curl https://dl.openfoam.com/add-debian-repo.sh | bash
-RUN ls
 
 # Update the repository information
-RUN apt-get update
+RUN apt-get update && \ 
+    apt-get install -y vim  openfoam2312-default paraview htop
 
-# Install preferred package. Eg,
-RUN apt-get install -y vim 
-RUN apt-get install -y openfoam2312-default
-
-RUN apt-get install -y paraview
-RUN apt-get install -y htop
-# Use the openfoam shell session. Eg,
-#openfoam2312
+RUN echo "exec /bin/bash" >> /etc/profile
 
 
 USER jovyan

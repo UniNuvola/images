@@ -26,6 +26,30 @@ RUN apt-get update && apt-get install -y openmpi-bin wget  && \
     /bin/bash installforall.sh && \
     rm swatplus-linux-installer-2.3.1.tgz
 
+WORKDIR /app
+RUN apt-get update && \
+    apt install libxcb-xinerama0 && \
+    wget https://download.agisoft.com/metashape-pro_2_1_3_amd64.tar.gz && \
+    tar -zxvf metashape-pro_2_1_3_amd64.tar.gz && \
+    rm *.tar.gz && \
+    cd metashape-pro  && \
+    rm metashape.sh && \
+    echo "#!/bin/bash \
+          appname="metashape" \
+          dirname="$PWD" \
+          TCL_LIBRARY=$dirname/python/lib/tcl8.6 \
+          TK_LIBRARY=$dirname/python/lib/tk8.6 \
+          export TCL_LIBRARY \
+          export TK_LIBRARY \
+          LD_LIBRARY_PATH=$dirname/lib:$dirname/python/lib:$LD_LIBRARY_PATH \
+          export LD_LIBRARY_PATH \
+          GST_PLUGIN_FEATURE_RANK=pulsesink:NONE \
+          export GST_PLUGIN_FEATURE_RANK \
+          $dirname/$appname " > metashape.sh && \
+   here=$PWD && \
+   cd /usr/local/bin && \
+   ln -s $here/metashape.sh .
+
 RUN conda create -n R-env  r-base r-essentials r-devtools -y  && \
     /bin/bash -c "source activate R-env && \
     R -e \"options(repos = list(CRAN = 'https://cloud.r-project.org/'))\" && \

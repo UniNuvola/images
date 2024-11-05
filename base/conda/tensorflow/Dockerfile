@@ -2,6 +2,10 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/conda:latest
 
 USER root 
 
+
+RUN apt-get update && \
+    apt-get install -y openmpi-bin libopenmpi-dev
+
 RUN conda create -n tensorflow tensorflow scikit-learn python=3.11.5 && \
     conda init && \
     /opt/conda/bin/conda shell.bash activate  tensorflow && \

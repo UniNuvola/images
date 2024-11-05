@@ -5,7 +5,7 @@ USER root
 
 RUN apt update
 
-RUN apt install -y --no-install-recommends build-essential ca-certificates wget
+RUN apt-get update && apt install -y --no-install-recommends build-essential ca-certificates wget
 
 RUN wget -O "/usr/share/keyrings/xpra.asc" https://xpra.org/xpra.asc
 

@@ -1,2 +1,2 @@
 IMAGE=harbor1.fisgeo.unipg.it/uninuvola/genomics
-DEPLOYED=2024-11-05
+DEPLOYED=2024-11-13

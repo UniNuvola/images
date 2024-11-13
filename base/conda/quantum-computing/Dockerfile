@@ -27,6 +27,8 @@ RUN conda create -n  qiskit python=3.11.5 && \
     /opt/conda/envs/qiskit/bin/pip install qiskit && \
     /opt/conda/envs/qiskit/bin/pip install qiskit-aer && \
     /opt/conda/envs/qiskit/bin/pip install qiskit_ibm_runtime && \
+    /opt/conda/envs/qiskit/bin/pip install qiskit-algorithms qiskit-nature && \
+    /opt/conda/envs/qiskit/bin/pip install numpy matplotlib pandas && \
     /opt/conda/bin/conda shell.bash deactivate
 
 RUN apt install -y nano less tmux screen

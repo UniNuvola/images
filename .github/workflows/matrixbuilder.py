@@ -5,6 +5,7 @@ import json
 fixed = [
     'unihubsingle',
     'unihub',
+    'unihubbackup',
     'ldapproxy/docker',
     'ldapsyncservice/docker',
     'web/docker',

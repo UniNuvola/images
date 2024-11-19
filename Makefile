@@ -1,5 +1,6 @@
 DIRS=unihub \
 unihubsingle \
+unihubbackup \
 base \
 base/conda \
 base/conda/pytorch \

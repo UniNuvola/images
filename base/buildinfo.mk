@@ -1,2 +1,2 @@
 IMAGE=harbor1.fisgeo.unipg.it/uninuvola/base
-DEPLOYED=2024-11-05
+DEPLOYED=2024-11-20

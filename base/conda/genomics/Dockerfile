@@ -105,7 +105,8 @@ RUN wget http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
 
 ##Compilations of the programs
 WORKDIR /app/ 
-RUN cd parallel-20241022/  && \
+RUN mv parallel-* parallel-new &&\
+    cd parallel-new/  && \
     ./configure && \
     make && \
     make install  && \

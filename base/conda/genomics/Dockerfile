@@ -105,7 +105,7 @@ RUN wget http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
 
 ##Compilations of the programs
 WORKDIR /app/ 
-RUN mv parallel-* parallel-new &&\
+RUN mv parallel-*/ parallel-new/ &&\
     cd parallel-new/  && \
     ./configure && \
     make && \

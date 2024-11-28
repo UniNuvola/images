@@ -29,7 +29,8 @@ RUN mkdir dlpoly && \
     cmake /app/dlpoly/build-pure-mpi  && \
     make -j16
 #ENV PATH="${PATH}:/app/dlpoly/build-pure-mpi"
-RUN echo "exec /bin/bash" >> /etc/profile
+RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
+    echo "exec /bin/bash" >> /etc/profile
 
 USER jovyan
 

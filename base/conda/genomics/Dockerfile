@@ -138,7 +138,8 @@ RUN mv /app/TrimGalore-0.6.10/trim_galore /usr/local/bin/. && \
     mv /app/bedtools2/bin/* /usr/local/bin/. && \
     mv /app/STAR/bin/Linux_x86_64/STAR /usr/local/bin/.
 
-RUN echo "exec /bin/bash" >> /etc/profile
+RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
+    echo "exec /bin/bash" >> /etc/profile
 
 USER jovyan
 

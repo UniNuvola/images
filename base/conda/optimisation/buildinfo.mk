@@ -1,2 +1,2 @@
 IMAGE=harbor1.fisgeo.unipg.it/uninuvola/optimisation
-DEPLOYED=2024-10-24
+DEPLOYED=2024-11-28

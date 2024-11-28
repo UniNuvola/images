@@ -1,2 +1,2 @@
 IMAGE=harbor1.fisgeo.unipg.it/uninuvola/quantumcomputing
-DEPLOYED=2024-11-20
+DEPLOYED=2024-11-28

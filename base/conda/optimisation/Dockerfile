@@ -29,7 +29,8 @@ RUN conda create -n PuLP python=3.12 && \
     /opt/conda/envs/PuLP/bin/python -m ipykernel install --name  PuLP --display-name PuLP && \
     /opt/conda/bin/conda shell.bash deactivate
 
-RUN echo "exec /bin/bash" >> /etc/profile
+RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
+    echo "exec /bin/bash" >> /etc/profile
 
 USER jovyan
 

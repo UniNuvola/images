@@ -22,6 +22,7 @@ RUN apt update && apt install -y fuse libfuse2 && \
 RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
     echo "exec /bin/bash" >> /etc/profile
 
+WORKDIR /home/jovyan
 
 USER jovyan
 

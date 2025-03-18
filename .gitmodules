@@ -7,3 +7,6 @@
 [submodule "web"]
 	path = web
 	url = git@github.com:UniNuvola/web.git
+[submodule "unihubsingle"]
+	path = unihubsingle
+	url = git@github.com:UniNuvola/unihubsingle

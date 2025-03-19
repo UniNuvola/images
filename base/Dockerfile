@@ -13,7 +13,9 @@ RUN install -d -m 0755 /etc/apt/keyrings && \
     apt-get update && apt-get install -y firefox
 
 # Chromium
-RUN add-apt-repository -y ppa:chromium-team/stable && apt update && apt install -y chromium-browser
+RUN echo -e "deb https://ppa.launchpadcontent.net/chromium-team/dev/ubuntu bionic main\ndeb-src https://ppa.launchpadcontent.net/chromium-team/dev/ubuntu bionic main" | tee -a /etc/apt/sources.list.d/chromium.list > /dev/null && \
+    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EA6E302DC78CC4B087CFC3570EBEA9B02842F111 && \
+    apt-get update && apt-get install -y chromium-browser
 
 
 RUN echo "exec /bin/bash" >> /etc/profile

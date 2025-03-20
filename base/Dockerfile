@@ -12,12 +12,6 @@ RUN install -d -m 0755 /etc/apt/keyrings && \
     echo -e "Package: *\nPin: origin packages.mozilla.org\nPin-Priority: 1000\n" | tee /etc/apt/preferences.d/mozilla && cat /etc/apt/preferences.d/mozilla && \
     apt-get update && apt-get install -y firefox
 
-# Chromium
-RUN echo -e "deb https://ppa.launchpadcontent.net/chromium-team/dev/ubuntu bionic main\ndeb-src https://ppa.launchpadcontent.net/chromium-team/dev/ubuntu bionic main" | tee -a /etc/apt/sources.list.d/chromium.list > /dev/null && \
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys EA6E302DC78CC4B087CFC3570EBEA9B02842F111 && \
-    apt-get update && apt-get install -y chromium-browser
-
-
 RUN echo "exec /bin/bash" >> /etc/profile
 
 USER jovyan

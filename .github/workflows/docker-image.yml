@@ -4,7 +4,7 @@ on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "latest"]
 
 jobs:
   define-matrix:
@@ -33,15 +33,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-              submodules: true
+          submodules: true
 
       - name: 🛠 Build Docker image
         run: cd ${{ matrix.dir}} && make build
 
       - name: 🚀 Push Docker image
         run: cd ${{ matrix.dir}} && make push
-        if: github.event_name != 'pull_request'
-
-      - name: 🔖 Tag Docker image
-        run: cd ${{ matrix.dir}} && make tag
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && github.base_ref == 'latest')

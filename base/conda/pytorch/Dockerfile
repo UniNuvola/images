@@ -1,4 +1,6 @@
-FROM harbor1.fisgeo.unipg.it/uninuvola/conda:latest
+ARG GIT_BRANCH
+
+FROM harbor1.fisgeo.unipg.it/uninuvola/conda:${GIT_BRANCH}
 
 USER root 
 

@@ -13,8 +13,13 @@ endif
 
 .PHONY: build
 build: check
-	docker build -t $(IMAGE):$(BRANCH) .
+	docker build --build-arg GIT_BRANCH=$(BRANCH) -t $(IMAGE):$(BRANCH) .
 
 .PHONY: push
 push: check
 	docker push $(IMAGE):$(BRANCH)
+
+# TODO: remove remote images ??
+.PHONY: untag
+untag: check
+	docker image rm $(IMAGE):$(BRANCH)

@@ -1,4 +1,6 @@
-FROM harbor1.fisgeo.unipg.it/uninuvola/unihubsingle:latest
+ARG GIT_BRANCH
+
+FROM harbor1.fisgeo.unipg.it/uninuvola/unihubsingle:${GIT_BRANCH}
 
 USER root
 

@@ -39,6 +39,10 @@ jobs:
       - name: 🛠 Build Docker image
         run: cd ${{ matrix.dir}} && make build
 
-      - name: 🚀 Push Docker image
+      - name: 🚀 Push Docker image (harbor)
         run: cd ${{ matrix.dir}} && make push
+        if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && github.base_ref == 'latest')
+
+      - name: 🚀 Push Docker image (quay)
+        run: cd ${{ matrix.dir}} && make quay
         if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && github.base_ref == 'latest')

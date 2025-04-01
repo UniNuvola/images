@@ -24,6 +24,7 @@ push: check
 untag: check
 	docker image rm $(IMAGE):$(BRANCH)
 
+.PHONY: quay
 quay: check
 ifeq ($(QUAY),)
 	$(warning "Missing QUAY")
@@ -36,4 +37,3 @@ else
 	docker tag $(IMAGE):$(BRANCH) $(QUAY):$(BRANCH)
 	docker push $(QUAY):$(BRANCH)
 endif
-

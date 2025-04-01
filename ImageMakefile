@@ -3,7 +3,7 @@ include buildinfo.mk
 BRANCH:=$(shell git branch --show-current)
 
 .PHONY: all 
-all: check build push tag
+all: check build push quay
 
 .PHONY: check
 check:
@@ -23,3 +23,17 @@ push: check
 .PHONY: untag
 untag: check
 	docker image rm $(IMAGE):$(BRANCH)
+
+.PHONY: quay
+quay: check
+ifeq ($(QUAY),)
+	$(warning "Missing QUAY")
+	@echo "Skip pushing image on QUAY"
+	@exit 0
+else ifeq ($(QUAY), n)
+	@echo "Skip pushing image on QUAY"
+else
+	@echo "Pushing on QUAY"
+	docker tag $(IMAGE):$(BRANCH) $(QUAY):$(BRANCH)
+	docker push $(QUAY):$(BRANCH)
+endif

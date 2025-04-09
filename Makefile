@@ -5,7 +5,8 @@ base \
 base/conda \
 base/conda/pytorch \
 base/conda/pytorch-gpu \
-base/engineering
+base/engineering \
+basedev
 
 .PHONY: all
 all: build push tag

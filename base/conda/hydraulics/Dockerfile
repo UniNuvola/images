@@ -4,11 +4,12 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/conda:${GIT_BRANCH}
 
 USER root 
 
+# https://qgis.org/resources/installation-guide/#linux
 RUN apt update && \
     apt install -y gnupg software-properties-common && \
     mkdir -m755 -p /etc/apt/keyrings && \
     wget -O /etc/apt/keyrings/qgis-archive-keyring.gpg https://download.qgis.org/downloads/qgis-archive-keyring.gpg && \
-    echo "deb [signed-by=/etc/apt/keyrings/qgis-archive-keyring.gpg] https://qgis.org/debian bullseye main" > /etc/apt/sources.list.d/qgis.list && \
+    printf "Types: deb deb-src\nURIs: https://qgis.org/debian\nSuites: noble\nArchitectures: amd64\nComponents: main\nSigned-By: /etc/apt/keyrings/qgis-archive-keyring.gpg" > /etc/apt/sources.list.d/qgis.sources && \
     apt update && \
     apt install -y qgis qgis-plugin-grass
 

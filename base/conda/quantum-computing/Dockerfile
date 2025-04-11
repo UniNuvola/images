@@ -10,6 +10,7 @@ RUN conda create -n spinqit python=3.9.12  && \
     /opt/conda/envs/spinqit/bin/pip install ipykernel && \
     /opt/conda/envs/spinqit/bin/python -m ipykernel install --name  spinqit --display-name spinqit && \
     /opt/conda/envs/spinqit/bin/pip install torch && \
+    /opt/conda/envs/spinqit/bin/pip install --force-reinstall numpy==1.23 && \
     /opt/conda/envs/spinqit/bin/pip install spinqit && \
     /opt/conda/bin/conda shell.bash deactivate
 

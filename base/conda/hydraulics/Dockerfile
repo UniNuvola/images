@@ -16,6 +16,7 @@ RUN apt update && \
     apt update
 
 RUN apt install -y qgis qgis-plugin-grass python3-qgis grass grass-doc openmpi-bin && \
+    conda install conda-forge::qgis && \
     flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo && \
     flatpak install -y flathub org.cloudcompare.CloudCompare && \
     mkdir swatplus && \

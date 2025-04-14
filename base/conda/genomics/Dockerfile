@@ -4,12 +4,9 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/conda:${GIT_BRANCH}
 
 USER root 
 RUN apt-get update && \
-    apt-get install -y openssh-server wget  libncurses-dev openmpi-bin libopenmpi-dev gfortran mpich cmake xz-utils \ 
-                       libbz2-dev liblzma-dev libncurses-dev libpq-dev python-dev-is-python3  && \
-    apt-get install -y htop vim hwloc && \
-    apt install -y openjdk-17-jre-headless libboost-all-dev libgsl0-dev  && \
-    apt install -y unzip gawk bison r-base && \
-    apt install -y nano less tmux screen 
+    apt install -y openssh-server wget  libncurses-dev openmpi-bin libopenmpi-dev gfortran mpich cmake xz-utils \ 
+                    libbz2-dev liblzma-dev libncurses-dev libpq-dev python-dev-is-python3 htop vim hwloc \
+                    openjdk-17-jre-headless libboost-all-dev libgsl0-dev unzip gawk bison r-base nano less tmux screen parallel bedtools
 
 RUN conda config --add channels bioconda && \
     conda config --add channels conda-forge && \
@@ -89,13 +86,7 @@ RUN conda create -n R-env  r-base r-essentials r-devtools -y  && \
     /bin/bash -c "source activate R-env && R -e 'install.packages(\"lfmm\", repos=\"http://cran.us.r-project.org\")'"
 
 WORKDIR /app
-## DOWNLOAD FILES
-#GNU PARALLEL all fatto
-RUN wget http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
-    tar xjf parallel-latest.tar.bz2 && \
-    wget https://github.com/arq5x/bedtools2/releases/download/v2.29.1/bedtools-2.29.1.tar.gz && \
-    tar -zxvf bedtools-2.29.1.tar.gz && \
-    wget https://sourceforge.net/projects/subread/files/subread-2.0.7/subread-2.0.7-source.tar.gz && \
+RUN wget https://sourceforge.net/projects/subread/files/subread-2.0.7/subread-2.0.7-source.tar.gz && \
     tar -zxvf subread-2.0.7-source.tar.gz && \
     git clone https://github.com/gpertea/gffread  && \
     git clone https://github.com/lh3/seqtk.git  && \
@@ -103,17 +94,7 @@ RUN wget http://ftp.gnu.org/gnu/parallel/parallel-latest.tar.bz2 && \
     git clone https://github.com/vcftools/vcftools.git  && \
     git clone https://github.com/alexdobin/STAR.git  && \
     curl -fsSL https://github.com/FelixKrueger/TrimGalore/archive/0.6.10.tar.gz -o trim_galore.tar.gz &&  \
-    tar xvzf trim_galore.tar.gz
-
-##Compilations of the programs
-WORKDIR /app/ 
-RUN mv parallel-*/ parallel-new/ &&\
-    cd parallel-new/  && \
-    ./configure && \
-    make && \
-    make install  && \
-    cd /app/bedtools2  && \
-    make  && \
+    tar xvzf trim_galore.tar.gz && \
     cd /app/gffread  && \
     make release  && \
     cd /app/seqtk  && \
@@ -130,20 +111,15 @@ RUN mv parallel-*/ parallel-new/ &&\
     cd /app/subread-2.0.7-source/src && \
     make -f Makefile.Linux  
 
-#WORKDIR /app
-#RUN rm *.tar.gz *.zip
 
 WORKDIR /usr/local/bin
 RUN wget https://faculty.washington.edu/browning/beagle/beagle.06Aug24.a91.jar -O beagle.jar
 
 RUN mv /app/TrimGalore-0.6.10/trim_galore /usr/local/bin/. && \
-    mv /app/bedtools2/bin/* /usr/local/bin/. && \
     mv /app/STAR/bin/Linux_x86_64/STAR /usr/local/bin/.
 
 RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
     echo "exec /bin/bash" >> /etc/profile
 
+WORKDIR /home/jovyan
 USER jovyan
-
-
-

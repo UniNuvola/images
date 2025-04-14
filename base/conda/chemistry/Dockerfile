@@ -19,7 +19,7 @@ RUN conda create -n mdtraj -y && \
 ENV FFLAGS="-fallow-argument-mismatch -O3 -mtune=native"
 
 # For DLPOLY
-RUN apt-get install -y openmpi-bin libopenmpi-dev gfortran mpich cmake xz-utils
+RUN apt update && apt install -y openmpi-bin libopenmpi-dev gfortran mpich cmake xz-utils
 
 WORKDIR /app
 RUN mkdir dlpoly && \

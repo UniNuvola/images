@@ -1,11 +1,6 @@
-DIRS=unihub \
-unihubsingle \
-unihubbackup \
-base \
-base/conda \
-base/conda/pytorch \
-base/conda/pytorch-gpu \
-base/engineering
+FIRSTDIRS=./unihub ./unihubsingle ./unihubbackup ./base
+ALLDIRS:=$(shell find . -mindepth 2 -name Makefile | xargs dirname)
+DIRS:=$(FIRSTDIRS) $(filter-out $(FIRSTDIRS), $(ALLDIRS))
 
 .PHONY: all
 all: build push tag

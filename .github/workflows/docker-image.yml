@@ -2,9 +2,9 @@ name: Rebuild Images
 
 on:
   push:
-    branches: [ "main", "latest" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "main", "latest"]
+    branches: [ "main" ]
 
 jobs:
   define-matrix:
@@ -41,8 +41,6 @@ jobs:
 
       - name: 🚀 Push Docker image (harbor)
         run: cd ${{ matrix.dir}} && make push
-        if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && github.base_ref == 'latest')
 
       - name: 🚀 Push Docker image (quay)
         run: cd ${{ matrix.dir}} && make quay
-        if: github.event_name != 'pull_request' || (github.event_name == 'pull_request' && github.base_ref == 'latest')

@@ -1,4 +1,4 @@
-FROM harbor1.fisgeo.unipg.it/uninuvola/unihubsingle:latest
+FROM harbor1.fisgeo.unipg.it/uninuvola/unihubsingle:main
 
 USER root
 

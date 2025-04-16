@@ -34,8 +34,5 @@ RUN conda create -n  qiskit python=3.11.5 && \
     /opt/conda/envs/qiskit/bin/pip install numpy matplotlib pandas pyscf pylatexenc && \
     /opt/conda/bin/conda shell.bash deactivate
 
-RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
-    echo "exec /bin/bash" >> /etc/profile
-
 USER jovyan
 

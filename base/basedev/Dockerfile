@@ -7,6 +7,12 @@ USER root
 RUN apt update && \
     apt install -y zip unzip unrar-free openssh-client htop procps nano less tmux screen vim curl git gfortran cmake build-essential pkg-config
 
+# SWI-Prolog
+RUN apt install -y software-properties-common && \
+    apt-add-repository -y ppa:swi-prolog/stable && \
+    apt update && \
+    apt install -y swi-prolog
+
 # Golang
 RUN wget -O go.tar.gz https://dl.google.com/go/go1.24.2.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go.tar.gz && \

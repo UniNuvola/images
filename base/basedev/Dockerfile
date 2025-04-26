@@ -18,6 +18,9 @@ RUN wget -O go.tar.gz https://dl.google.com/go/go1.24.2.linux-amd64.tar.gz && \
     tar -C /usr/local -xzf go.tar.gz && \
     rm go.tar.gz
 
+# Qemu
+RUN apt install -y qemu-system
+
 RUN echo "export PATH=\$PATH:/usr/local/go/bin" > /etc/profile.d/go.sh
 
 USER jovyan

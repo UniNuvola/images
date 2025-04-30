@@ -32,9 +32,6 @@ RUN mkdir dlpoly && \
     make -j16
 
 #ENV PATH="${PATH}:/app/dlpoly/build-pure-mpi"
-RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
-    echo "exec /bin/bash" >> /etc/profile
-
 WORKDIR /home/jovyan
 USER jovyan
 

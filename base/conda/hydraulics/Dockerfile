@@ -62,8 +62,5 @@ RUN conda create -n R-env  r-base r-essentials r-devtools -y  && \
     R -e \"devtools::install_github('IRkernel/IRkernel')\" && \
     R -e \"IRkernel::installspec(user = FALSE)\"" 
 
-RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
-    echo "exec /bin/bash" >> /etc/profile
-
 WORKDIR /home/jovyan
 USER jovyan

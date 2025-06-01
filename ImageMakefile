@@ -1,6 +1,6 @@
 include buildinfo.mk
 
-BRANCH:=$(shell git branch --show-current)
+BRANCH:=$(shell git branch --show-current|sed -r 's/\//-/g')
 
 .PHONY: all 
 all: check build push quay

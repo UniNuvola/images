@@ -21,10 +21,6 @@ RUN apt update && apt install -y fuse libfuse2 && \
     cp  /app/squashfs-root/usr/lib/*  /usr/local/lib/. &&\
     chmod 755 /usr/local/bin/nvtop
 
-RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
-    echo "exec /bin/bash" >> /etc/profile
-
 WORKDIR /home/jovyan
-
 USER jovyan
 

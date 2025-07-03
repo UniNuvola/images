@@ -15,11 +15,5 @@ RUN  conda config --set channel_priority strict && \
     /opt/conda/envs/CERN-root/bin/python -m ipykernel install --name CERN-root --display-name CERN-root && \
     /opt/conda/bin/conda shell.bash deactivate
 
-
-
-
-RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
-    echo "exec /bin/bash" >> /etc/profile
-
 USER jovyan
 

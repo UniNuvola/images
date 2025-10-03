@@ -16,6 +16,7 @@ RUN install -d -m 0755 /etc/apt/keyrings && \
 RUN wget -O codium.deb https://github.com/VSCodium/vscodium/releases/download/1.98.2.25078/codium_1.98.2.25078_amd64.deb && \
     apt-get -y install ./codium.deb
 
-RUN echo "exec /bin/bash" >> /etc/profile
+RUN echo "exec /bin/bash" >> /etc/profile && \
+    echo "for i in jpeg png gif bmp webp tiff; do xdg-mime default org.xfce.ristretto.desktop image/\$i;done" >> /etc/profile.d/ristretto.sh 
 
 USER jovyan

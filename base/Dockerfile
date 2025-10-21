@@ -3,7 +3,7 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/unihubsingle:main
 USER root
 
 RUN apt update && \
-    apt install -y zip unzip unrar-free openssh-client htop procps nano less tmux screen vim curl git gfortran rsync ristretto
+    apt install -y zip unzip unrar-free openssh-client htop procps nano less tmux screen vim curl git gfortran rsync ristretto cmake
 
 # Firefox
 RUN install -d -m 0755 /etc/apt/keyrings && \

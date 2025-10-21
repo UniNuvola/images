@@ -4,10 +4,9 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/conda:${GIT_BRANCH}
 
 USER root 
 
-
-RUN apt-get update && \
-    apt-get install -y openmpi-bin libopenmpi-dev
-
+# install CuDA-toolkit
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb && \
+    dpkg -i cuda-keyring_1.1-1_all.deb && apt update && apt install -y cuda-toolkit openmpi-bin libopenmpi-dev
 
 RUN conda create -n tensorflow-gpu  python=3.11.5 -y && \
     conda init && \

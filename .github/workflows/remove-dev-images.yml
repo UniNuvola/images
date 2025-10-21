@@ -35,6 +35,10 @@ jobs:
         with:
           submodules: true
 
+      - name: Fetch the head branch and Checkout
+        run: |
+          git fetch origin ${{ github.event.pull_request.head.ref }} && git checkout ${{ github.event.pull_request.head.ref }}
+
       - name: 🔥 Untag
         run: cd ${{ matrix.dir}} && make untag
 

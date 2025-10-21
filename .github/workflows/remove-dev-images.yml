@@ -1,0 +1,40 @@
+name: Remove Dev-Tagged Images
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  define-matrix:
+    if: github.event.pull_request.head_ref != 'main'
+    runs-on: self-hosted
+
+    outputs:
+      dirs: ${{ steps.dirs.outputs.dirs }}
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: 🔍 Find dirs
+        id: dirs
+        run: |
+          python .github/workflows/matrixbuilder.py >> "$GITHUB_OUTPUT"
+
+  untag:
+    needs: define-matrix
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        dir: ${{ fromJSON(needs.define-matrix.outputs.dirs) }}
+
+    runs-on: self-hosted
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      - name: 🔥 Untag
+        run: cd ${{ matrix.dir}} && make untag
+

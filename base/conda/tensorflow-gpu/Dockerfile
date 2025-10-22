@@ -54,8 +54,5 @@ RUN conda create -n tensorflow-gpu  python=3.11.5 -y && \
     matplotlib pandas seaborn  && \
     /opt/conda/envs/tensorflow-gpu/bin/python -m ipykernel install --name tensorflow-gpu --display-name "tensorflow-gpu"
 
-RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
-    echo "exec /bin/bash" >> /etc/profile
-
 USER jovyan
 

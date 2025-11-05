@@ -4,10 +4,6 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/conda:${GIT_BRANCH}
 
 USER root 
 
-# install CuDA-toolkit
-RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb && \
-    dpkg -i cuda-keyring_1.1-1_all.deb && apt update && apt install -y cuda-toolkit openmpi-bin libopenmpi-dev
-
 RUN conda create -n tensorflow-gpu  python=3.11.5 -y && \
     conda init && \
     /opt/conda/bin/conda shell.bash activate tensorflow-gpu  && \
@@ -55,7 +51,6 @@ RUN conda create -n tensorflow-gpu  python=3.11.5 -y && \
     /opt/conda/envs/tensorflow-gpu/bin/python -m ipykernel install --name tensorflow-gpu --display-name "tensorflow-gpu"
 
 RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
-    echo "export PATH=\"$PATH:/usr/local/cuda-13.0/bin\" " >> /etc/profile.d/cudatoolkit.sh && \
     echo "exec /bin/bash" >> /etc/profile
 
 USER jovyan

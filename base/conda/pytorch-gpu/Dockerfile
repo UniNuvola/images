@@ -5,7 +5,7 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/conda:${GIT_BRANCH}
 USER root 
 
 # install CuDA-toolkit
-RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb && \
+RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb && \
     dpkg -i cuda-keyring_1.1-1_all.deb && apt update && apt install -y cuda-toolkit
 
 RUN conda create -n pytorchgpu pytorch torchvision torchaudio pytorch-cuda=12.4 python=3.11.5 -c pytorch -c nvidia && \
@@ -26,6 +26,7 @@ RUN apt update && apt install -y fuse libfuse2 && \
     chmod 755 /usr/local/bin/nvtop
 
 RUN echo "/opt/conda/bin/conda init > /dev/null " >> /etc/profile.d/conda.sh && \
+    echo "export PATH=\"$PATH:/usr/local/cuda-13.0/bin\" " >> /etc/profile.d/cudatoolkit.sh && \
     echo "exec /bin/bash" >> /etc/profile
 
 WORKDIR /home/jovyan

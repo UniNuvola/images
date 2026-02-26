@@ -4,6 +4,8 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/conda:${GIT_BRANCH}
 
 USER root 
 
+RUN pip install jupyterlab_nvdashboard
+
 # install CuDA-toolkit
 RUN wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb && \
     dpkg -i cuda-keyring_1.1-1_all.deb && apt update && apt install -y cuda-toolkit

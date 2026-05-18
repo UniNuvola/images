@@ -4,7 +4,7 @@ FROM harbor1.fisgeo.unipg.it/uninuvola/conda:${GIT_BRANCH}
 
 USER root 
 
-RUN conda create -n pytorch pytorch python=3.11.5 && \
+RUN conda create -n pytorch pytorch torchvision torchaudio python=3.11.5 -c pytorch && \
     conda init && \
     /opt/conda/bin/conda shell.bash activate  pytorch && \
     /opt/conda/envs/pytorch/bin/pip install ipykernel pandas numpy scikit-learn scipy seaborn matplotlib && \
